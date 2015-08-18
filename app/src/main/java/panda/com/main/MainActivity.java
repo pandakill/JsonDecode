@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,39 +19,35 @@ import panda.com.jsondecode.pJsonDecode;
 
 public class MainActivity extends ActionBarActivity {
 
-    private final static String jsonFileName = "test_dump.json";
-    private EditText jstr_et;
-    private EditText map_et;
+    private final static    String      jsonFileName = "test_dump.json";    //json文件名
+    private                 EditText    jstr_et;
+    private                 EditText    map_et;
+    private                 EditText    get_et1;
+    private                 EditText    get_et2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        jstr_et = (EditText) findViewById(R.id.jstr_et);
-        map_et = (EditText) findViewById(R.id.map_et);
+        //初始化控件
+        jstr_et     = (EditText) findViewById(R.id.jstr_et);
+        map_et      = (EditText) findViewById(R.id.map_et);
+        get_et1     = (EditText) findViewById(R.id.get_et1);
+        get_et2     = (EditText) findViewById(R.id.get_et2);
 
-        String jsonStr;
+        String      jsonStr;    //用于存放读取json文件的字符串
+
         jsonStr = ReadJsonFile.readLocalJson(MainActivity.this, jsonFileName);
+        //如果json文件中含有中文,则调用readLocalJsonWithChinese方法
+        //jsonStr = ReadJsonFile.readLocalJsonWithChinese(MainActivity.this.jsonFileName);
 
-        jstr_et.setText(jsonStr);
+        //Log.i("jsonStr", jsonStr);
 
-        Log.i("jsonStr", jsonStr);
-
+        //调用jsonToObject方法，传入jsonStr,返回解析后的map对象
         Map map = pJsonDecode.jsonToObject(jsonStr);
 
-        map_et.setText(map.toString());
-
-        //Set<String> keys = map.keySet();
-        //Iterator iterator = keys.iterator();
-        //Iterator iterator = map.entrySet().iterator();
-
-        //while (iterator.hasNext()) {
-            //String key = iterator.next();
-            //System.out.println( key + "-->" + map.get(key) );
-        //    System.out.println( iterator.next() );
-        //}
-
+        //遍历map
         Set keys = map.keySet();
         Iterator it = keys.iterator();
 
@@ -59,8 +56,11 @@ public class MainActivity extends ActionBarActivity {
             System.out.println( key + "--->" + map.get(key) );
         }
 
-        System.out.println("map.get(aaa) = " + map.get("aaa"));
-        System.out.println("map.get(\"ccc) = " + map.get("\"ccc"));
+        //将遍历的部分结果传至activity当中显示
+        jstr_et.setText(jsonStr);
+        map_et.setText(map.toString());
+        get_et1.setText(map.get("aaa").toString());
+        get_et2.setText(((List)map.get("aaa")).get(0).toString());
 
     }
 

@@ -1,1 +1,13 @@
 /build
+.idea/*
+.gitignore
+generated/*
+out/*
+androidannotations.log
+app/build/*
+.gradle/*
+.gradle/2.2.1/taskArtifacts/cache.properties
+.gradle/2.2.1/taskArtifacts/outputFileStates.bin
+app/app.iml
+local.properties
+*.iml

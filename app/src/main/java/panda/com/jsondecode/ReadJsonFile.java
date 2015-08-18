@@ -28,7 +28,8 @@ public class ReadJsonFile {
             while ((jsonString = bufferedReader.readLine() ) != null) {
                 resultString+=jsonString;
             }
-            //resultString = resultString.replaceAll(" ","");
+            //去掉字符串当中的所有空格
+            resultString = resultString.replaceAll(" ","");
         } catch (Exception e) {
             e.printStackTrace();
         }
