@@ -6,9 +6,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.TextView;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import panda.com.jsondecode.R;
 import panda.com.jsondecode.ReadJsonFile;
@@ -40,7 +41,26 @@ public class MainActivity extends ActionBarActivity {
 
         map_et.setText(map.toString());
 
-        System.out.println("map<ccc,?> = " + map.get("ccc"));
+        //Set<String> keys = map.keySet();
+        //Iterator iterator = keys.iterator();
+        //Iterator iterator = map.entrySet().iterator();
+
+        //while (iterator.hasNext()) {
+            //String key = iterator.next();
+            //System.out.println( key + "-->" + map.get(key) );
+        //    System.out.println( iterator.next() );
+        //}
+
+        Set keys = map.keySet();
+        Iterator it = keys.iterator();
+
+        while (it.hasNext()) {
+            String key = (String) it.next();
+            System.out.println( key + "--->" + map.get(key) );
+        }
+
+        System.out.println("map.get(aaa) = " + map.get("aaa"));
+        System.out.println("map.get(\"ccc) = " + map.get("\"ccc"));
 
     }
 

@@ -12,13 +12,15 @@ import java.util.Map;
 public class pJsonDecode {
 
     /**
-     * ´«ÈëjsonString£¬½«Æä×ª»»ÎªMap¶ÔÏó
+     * ä¼ å…¥jsonStringï¼Œå°†å…¶è½¬æ¢ä¸ºMapå¯¹è±¡
      * @param jsonString
      * @return
      */
     public static Map<String, Object> jsonToObject(String jsonString) {
-        Map<String, Object> reMap = new HashMap<String, Object>();
+        Map reMap = new HashMap();
+        //å»é™¤é¦–å°¾{}
         jsonString = jsonString.substring(1, jsonString.length() - 1);
+
         int lindex = 0;
         int rindex = 1;
         String keystring;
@@ -26,9 +28,12 @@ public class pJsonDecode {
             while (jsonString.charAt(rindex) != '\"' || jsonString.charAt(rindex+1) != ':') {
                 rindex ++;
             }
+
+            //å­—ç¬¦ä¸² "xxx" ä»lindex+1å¼€å§‹å¯¹å­—ç¬¦ä¸²åˆ‡å‰²ï¼ŒåŒ¹é…é”®
             keystring = jsonString.substring(lindex + 1, rindex);
-            System.out.println(jsonString.charAt(rindex));
+            System.out.println("keystring jsonString.charAt(" + rindex + ") = " + jsonString.charAt(rindex));
             lindex = rindex = rindex + 2;
+            //åŒ¹é…å€¼
             Object value = "";
             if (jsonString.charAt(lindex) == '{') {
                 rindex = findRightPartIndex(jsonString, lindex, rindex, '{');
@@ -57,12 +62,13 @@ public class pJsonDecode {
     }
 
     /**
-     * ´«ÈëjsonString£¬½«Æä×ª»»ÎªList¶ÔÏó
+     * ä¼ å…¥jsonStringï¼Œå°†å…¶è½¬æ¢ä¸ºListå¯¹è±¡
      * @param jsonString
      * @return
      */
     public static List jsonToArray(String jsonString) {
         List list = new ArrayList();
+        //å»é™¤é¦–å°¾[]
         jsonString = jsonString.substring(1, jsonString.length() - 1);
         int rindex = 0;
         int i = 0;
@@ -94,7 +100,7 @@ public class pJsonDecode {
     }
 
     /**
-     * ²éÕÒc×Ö·ûÔÚjsonStringµÄÎ»ÖÃ
+     * æŸ¥æ‰¾cå­—ç¬¦çš„å¦ä¸€åŠåœ¨åœ¨jsonStringçš„ä½ç½®
      * @param jsonString
      * @param lindex
      * @param rindex
@@ -130,7 +136,7 @@ public class pJsonDecode {
         }
 
         if (rindex == jsonString.length()) {
-            throw new RuntimeException("jsonString ³¤¶ÈÔ½½ç");
+            throw new RuntimeException("jsonString é•¿åº¦è¶Šç•Œ");
         }
 
         return rindex;
