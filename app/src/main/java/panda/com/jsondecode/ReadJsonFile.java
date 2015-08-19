@@ -19,8 +19,8 @@ public class ReadJsonFile {
      * @return jsonString
      */
     public static String readLocalJson(Context context,  String fileName){
-        String jsonString="";
-        String resultString="";
+        String  jsonString       =   "";
+        String  resultString     =   "";
         try {
             AssetManager assetManager = context.getResources().getAssets();
             BufferedReader bufferedReader;
